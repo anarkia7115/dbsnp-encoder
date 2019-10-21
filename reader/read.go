@@ -1,4 +1,4 @@
-package main
+package reader
 
 import (
 	"bufio"
@@ -12,34 +12,26 @@ func check(e error) {
 	}
 }
 
-type SnpKey struct {
-	Chr  int16
-	Pos  int32
-	Refa []int16
-	Refc []int16
-	Refg []int16
-	Reft []int16
-	Alta []int16
-	Altc []int16
-	Altg []int16
-	Altt []int16
-}
-
-type Snp map[SnpKey]string
-
+// Read is to read a file
 func Read(inputTxt string) {
 	file, err := os.Open(inputTxt)
 	check(err)
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+	i := 0
 	for scanner.Scan() {
 		fmt.Println(scanner.Text())
+		i++
+		if i > 10 {
+			break
+		}
 	}
 }
 
-func main() {
+// an example of read file
+func ReadExample() {
 	inputTxt := "./dbsnp/1.txt"
 	fmt.Printf("hello!\n")
-	read(inputTxt)
+	Read(inputTxt)
 }
